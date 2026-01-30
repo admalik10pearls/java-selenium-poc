@@ -31,4 +31,9 @@ public class ConfigReader {
         // Priority 2: config.properties
         return properties.getProperty(key);
     }
+    public static boolean isHeadless() {
+        String val = get("headless");
+        // default if null/empty -> false
+        return val != null && val.equalsIgnoreCase("true");
+    }
 }
