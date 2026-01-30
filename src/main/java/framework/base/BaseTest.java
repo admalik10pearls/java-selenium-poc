@@ -2,6 +2,7 @@ package framework.base;
 
 import framework.config.ConfigReader;
 import framework.driver.DriverFactory;
+import framework.utils.LoggerUtils;
 import framework.utils.ScreenshotUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +21,8 @@ public abstract class BaseTest {
 
         driver = DriverFactory.createDriver(browser);
         driver.manage().window().maximize();
+        LoggerUtils.info("Running tests on browser: " + browser);
+
     }
 
     @AfterEach
