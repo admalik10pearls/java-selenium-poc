@@ -33,8 +33,8 @@ public class LoginPage extends BasePage{
      */
     public void loginWithDefaultUser() {
         login(
-                ConfigReader.get("username"),
-                ConfigReader.get("password")
+                ConfigReader.get("app_username"),
+                ConfigReader.get("app_password")
         );
     }
 }

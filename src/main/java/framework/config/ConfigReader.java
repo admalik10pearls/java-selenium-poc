@@ -1,29 +1,34 @@
 package framework.config;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
-
     private static final Properties properties = new Properties();
 
     static {
-        try (InputStream input =
-                     ConfigReader.class
-                             .getClassLoader()
-                             .getResourceAsStream("config.properties")) {
-
-            if (input == null) {
-                throw new RuntimeException("config.properties not found");
+        try (InputStream input = ConfigReader.class
+                .getClassLoader()
+                .getResourceAsStream("config.properties")) {
+            if (input != null) {
+                properties.load(input);
             }
-            properties.load(input);
-
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException("Failed to load config.properties", e);
         }
     }
 
+    /**
+     * First tries OS env var, then .env, then config.properties.
+     */
     public static String get(String key) {
+        // Priority 1: OS or .env via EnvLoader
+        String value = EnvLoader.get(key);
+        if (value != null && !value.isEmpty()) {
+            return value;
+        }
+        // Priority 2: config.properties
         return properties.getProperty(key);
     }
 }
