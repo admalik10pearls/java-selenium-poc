@@ -41,6 +41,9 @@ jobs:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
 
+      - name: Generate Allure HTML Report
+        run: mvn allure:report
+
       - name: Upload Allure HTML Report
         if: always()
         uses: actions/upload-artifact@v6
