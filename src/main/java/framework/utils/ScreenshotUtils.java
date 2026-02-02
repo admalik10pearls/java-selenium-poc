@@ -13,15 +13,8 @@ import java.nio.file.Paths;
 public class ScreenshotUtils {
 
     private static final Logger log = LoggerUtils.getLogger(ScreenshotUtils.class);
-    public static void captureScreenshot(WebDriver driver, String testName) {
-        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            Files.createDirectories(Paths.get("screenshots"));
-            String dest = "screenshots/" + testName + "_" + System.currentTimeMillis() + ".png";
-            Files.copy(srcFile.toPath(), Paths.get(dest));
-            log.info("Screenshot saved: {}", dest);
-        } catch (IOException e) {
-            log.error("Failed to save screenshot: {}", e.getMessage());
-        }
+
+    public static byte[] captureScreenshotAsBytes(WebDriver driver) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 }

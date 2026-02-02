@@ -5,6 +5,8 @@ import framework.pages.InventoryPage;
 import framework.pages.LoginPage;
 import framework.utils.LoggerUtils;
 import framework.utils.TestDataReader;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.slf4j.Logger;
 import org.testng.annotations.Test;
 
@@ -15,6 +17,7 @@ public class LoginTest extends BaseTest {
     private static final Logger log = LoggerUtils.getLogger(LoginTest.class);
 
     @Test(description = "Login via valid credentials")
+    @Severity(SeverityLevel.CRITICAL)
     void validUserCanLogin() {
         log.info("Starting login test");
         LoginPage loginPage = new LoginPage(driver);
@@ -30,6 +33,7 @@ public class LoginTest extends BaseTest {
         log.info("Inventory page loaded successfully");
     }
     @Test(description = "Login via valid credentials using test Data")
+    @Severity(SeverityLevel.CRITICAL)
     void loginWithValidUser() {
         TestDataReader testData = new TestDataReader("testData.json");
 

@@ -41,9 +41,9 @@ jobs:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
 
-      - name: Archive test reports
+      - name: Upload Allure HTML Report
         if: always()
         uses: actions/upload-artifact@v6
         with:
-          name: test-results
-          path: target/surefire-reports/
+          name: allure-report
+          path: target/allure-report

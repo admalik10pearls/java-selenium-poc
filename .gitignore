@@ -48,3 +48,6 @@ failsafe-reports/
 
 # Environment variables
 .env
+
+#allure reports
+.allure
