@@ -41,12 +41,12 @@ jobs:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
 
-      - name: Generate Allure HTML Report
+      - name: Generate Allure HTML report
         run: mvn allure:report
 
-      - name: Upload Allure HTML Report
+      - name: Upload Allure HTML report as artifact
         if: always()
         uses: actions/upload-artifact@v6
         with:
           name: allure-report
-          path: target/allure-report
+          path: target/site/allure-maven
