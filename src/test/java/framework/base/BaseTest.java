@@ -9,15 +9,28 @@ import org.slf4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.lang.reflect.Method;
 
 public abstract class BaseTest {
 
     private static final Logger log = LoggerUtils.getLogger(BaseTest.class);
 
     protected WebDriver driver;
+    private String currentTestDescription;
 
     @BeforeMethod
-    public void setUp() {
+    public void setUp(Method method) {
+        Test testAnnotation = method.getAnnotation(Test.class);
+        if (testAnnotation != null && !testAnnotation.description().isEmpty()) {
+            currentTestDescription = testAnnotation.description();
+        } else {
+            currentTestDescription = "No description provided";
+        }
+
+        log.info("****STARTING TEST****: {}", currentTestDescription);
+
         String browser = System.getProperty(
                 "browser",
                 ConfigReader.get("browser")
@@ -30,12 +43,12 @@ public abstract class BaseTest {
 
     @AfterMethod
     public void tearDown(ITestResult result) {
-        // Capture screenshot if test failed
-        if (!result.isSuccess() && driver != null) {
+        log.info("****ENDING TEST****: {}", currentTestDescription);
+
+        if (result.getStatus() == ITestResult.FAILURE && driver != null) {
             String testName = result.getMethod().getMethodName();
             ScreenshotUtils.captureScreenshot(driver, testName);
         }
-
         if (driver != null) {
             driver.quit();
         }

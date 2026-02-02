@@ -16,6 +16,7 @@ mvn clean test
 Run a single test class:
 
 ```powershell
+mvn clean test -Pall-tests
 mvn clean test -Pui-tests
 mvn clean test -Papi-tests 
 ```
