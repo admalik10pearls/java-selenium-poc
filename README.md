@@ -16,7 +16,8 @@ mvn clean test
 Run a single test class:
 
 ```powershell
-mvn -Dtest=tests.ui.LoginTest test
+mvn clean test -Pui-tests
+mvn clean test -Papi-tests 
 ```
 
 ## What this project contains
