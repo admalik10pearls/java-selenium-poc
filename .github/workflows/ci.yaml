@@ -49,4 +49,4 @@ jobs:
         uses: actions/upload-artifact@v6
         with:
           name: allure-report
-          path: target/allure-maven
+          path: target/allure-report
