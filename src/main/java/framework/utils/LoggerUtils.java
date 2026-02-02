@@ -1,17 +1,39 @@
 package framework.utils;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LoggerUtils {
 
-    private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    // Private constructor to prevent instantiation
+    private LoggerUtils() {}
 
-    public static void info(String message) {
-        System.out.println("[INFO] " + dtf.format(LocalDateTime.now()) + " - " + message);
+    /**
+     * Returns a logger for the calling class.
+     *
+     * Usage:
+     * private static final Logger log = LoggerUtils.getLogger(MyClass.class);
+     */
+    public static Logger getLogger(Class<?> clazz) {
+        return LoggerFactory.getLogger(clazz);
     }
 
-    public static void error(String message) {
-        System.err.println("[ERROR] " + dtf.format(LocalDateTime.now()) + " - " + message);
+    /**
+     * Convenience methods for logging
+     */
+    public static void info(Class<?> clazz, String message) {
+        getLogger(clazz).info(message);
+    }
+
+    public static void debug(Class<?> clazz, String message) {
+        getLogger(clazz).debug(message);
+    }
+
+    public static void warn(Class<?> clazz, String message) {
+        getLogger(clazz).warn(message);
+    }
+
+    public static void error(Class<?> clazz, String message, Throwable t) {
+        getLogger(clazz).error(message, t);
     }
 }
