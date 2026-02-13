@@ -7,6 +7,11 @@ on:
   pull_request:
     branches:
       - main
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
 
 jobs:
   test:
@@ -40,46 +45,27 @@ jobs:
         env:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
-
-      - name: Load Allure history from GitHub Pages
-        uses: actions/checkout@v4
-        if: always()
         continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages-history
 
       - name: Generate Allure Report
         if: always()
         run: |
-          mkdir -p target/allure-results
-            
-          if [ -d "gh-pages-history/allure-results-history/history" ]; then
-            echo "Found previous history. Copying to target..."
-            mkdir -p target/allure-results/history
-            cp -r gh-pages-history/allure-results-history/history/* target/allure-results/history/
-          fi
-            
           mvn allure:report
 
-      - name: Deploy Allure Report to GitHub Pages
-        id: deploy_report
+      - name: Setup Pages
         if: always()
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: target/allure-report
-          destination_dir: allure-results/${{ github.run_id }}
-          keep_files: true
+        uses: actions/configure-pages@v5
 
-      - name: Update History for Next Run
-        if: always() && steps.deploy_report.outcome == 'success'
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages Artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: target/allure-report
-          destination_dir: allure-results-history
-          keep_files: false
+          path: target/allure-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        if: always()
+        uses: actions/deploy-pages@v4
 
       - name: Post PR Comment
         if: always() && github.event_name == 'pull_request'
@@ -88,8 +74,7 @@ jobs:
           message: |
             ### 📊 Test Execution Summary
               
-            ${{ (steps.deploy_report.outcome == 'success' && format('✅ **Allure Report:** [🔍 Click to View Results](https://{0}.github.io/{1}/allure-results/{2}/)', github.repository_owner, github.event.repository.name, github.run_id)) || '❌ **Allure Report:** Report generation or hosting failed. Check the Action logs.' }}
+            ${{ (steps.deployment.outcome == 'success' && format('✅ **Allure Report:** [🔍 Click to View Results]({0})', steps.deployment.outputs.page_url)) || '❌ **Allure Report:** Deployment failed.' }}
               
             - **Action Run:** [⚙️ View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            - **Execution Date:** ${{ github.event.head_commit.timestamp || 'Manual Run' }}
           comment_tag: allure-report-link
