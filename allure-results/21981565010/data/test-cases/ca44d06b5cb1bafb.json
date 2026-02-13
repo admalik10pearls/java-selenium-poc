@@ -1,12 +1,12 @@
 {
-  "uid" : "9d6d575db21ac030",
-  "name" : "Login via valid credentials",
-  "fullName" : "framework.tests.ui.LoginTest.validUserCanLogin",
-  "historyId" : "64df0f4f84d8c69ff2c61d0f5a47efae",
+  "uid" : "ca44d06b5cb1bafb",
+  "name" : "Login via valid credentials using test Data",
+  "fullName" : "framework.tests.ui.LoginTest.loginWithValidUser",
+  "historyId" : "6fb6779a82d3849d2ebd073ea791e743",
   "time" : {
-    "start" : 1770974676142,
-    "stop" : 1770974677463,
-    "duration" : 1321
+    "start" : 1770974800632,
+    "stop" : 1770974800729,
+    "duration" : 97
   },
   "status" : "passed",
   "flaky" : false,
@@ -14,9 +14,9 @@
   "beforeStages" : [ {
     "name" : "setUp",
     "time" : {
-      "start" : 1770974675827,
-      "stop" : 1770974676140,
-      "duration" : 313
+      "start" : 1770974797781,
+      "stop" : 1770974800577,
+      "duration" : 2796
     },
     "description" : "",
     "status" : "passed",
@@ -31,9 +31,9 @@
   "afterStages" : [ {
     "name" : "tearDown",
     "time" : {
-      "start" : 1770974677464,
-      "stop" : 1770974677532,
-      "duration" : 68
+      "start" : 1770974800736,
+      "stop" : 1770974800810,
+      "duration" : 74
     },
     "description" : "",
     "status" : "passed",
@@ -53,7 +53,7 @@
     "value" : "framework.tests.ui.LoginTest"
   }, {
     "name" : "testMethod",
-    "value" : "validUserCanLogin"
+    "value" : "loginWithValidUser"
   }, {
     "name" : "parentSuite",
     "value" : "AllTestsSuite"
@@ -68,7 +68,7 @@
     "value" : "runnervmjduv7"
   }, {
     "name" : "thread",
-    "value" : "2428@runnervmjduv7.main(1)"
+    "value" : "2386@runnervmjduv7.main(1)"
   }, {
     "name" : "framework",
     "value" : "testng"
@@ -92,6 +92,6 @@
     "categories" : [ ],
     "tags" : [ ]
   },
-  "source" : "9d6d575db21ac030.json",
+  "source" : "ca44d06b5cb1bafb.json",
   "parameterValues" : [ ]
 }

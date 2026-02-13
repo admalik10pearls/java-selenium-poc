@@ -3,26 +3,26 @@
   "name" : "behaviors",
   "children" : [ {
     "name" : "Login via valid credentials using test Data",
-    "uid" : "d804415836198791",
+    "uid" : "ca44d06b5cb1bafb",
     "parentUid" : "b1a8273437954620fa374b796ffaacdd",
     "status" : "passed",
     "time" : {
-      "start" : 1770974675656,
-      "stop" : 1770974675748,
-      "duration" : 92
+      "start" : 1770974800632,
+      "stop" : 1770974800729,
+      "duration" : 97
     },
     "flaky" : false,
     "newFailed" : false,
     "parameters" : [ ]
   }, {
     "name" : "Login via valid credentials",
-    "uid" : "9d6d575db21ac030",
+    "uid" : "a1aa8f14ca4e12c2",
     "parentUid" : "b1a8273437954620fa374b796ffaacdd",
     "status" : "passed",
     "time" : {
-      "start" : 1770974676142,
-      "stop" : 1770974677463,
-      "duration" : 1321
+      "start" : 1770974801192,
+      "stop" : 1770974802082,
+      "duration" : 890
     },
     "flaky" : false,
     "newFailed" : false,

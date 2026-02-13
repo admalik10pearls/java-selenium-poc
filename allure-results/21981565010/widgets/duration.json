@@ -1,20 +1,20 @@
 [ {
-  "uid" : "9d6d575db21ac030",
+  "uid" : "a1aa8f14ca4e12c2",
   "name" : "Login via valid credentials",
   "time" : {
-    "start" : 1770974676142,
-    "stop" : 1770974677463,
-    "duration" : 1321
+    "start" : 1770974801192,
+    "stop" : 1770974802082,
+    "duration" : 890
   },
   "status" : "passed",
   "severity" : "critical"
 }, {
-  "uid" : "d804415836198791",
+  "uid" : "ca44d06b5cb1bafb",
   "name" : "Login via valid credentials using test Data",
   "time" : {
-    "start" : 1770974675656,
-    "stop" : 1770974675748,
-    "duration" : 92
+    "start" : 1770974800632,
+    "stop" : 1770974800729,
+    "duration" : 97
   },
   "status" : "passed",
   "severity" : "critical"
