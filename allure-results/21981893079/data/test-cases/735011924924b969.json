@@ -1,0 +1,97 @@
+{
+  "uid" : "735011924924b969",
+  "name" : "Login via valid credentials using test Data",
+  "fullName" : "framework.tests.ui.LoginTest.loginWithValidUser",
+  "historyId" : "6fb6779a82d3849d2ebd073ea791e743",
+  "time" : {
+    "start" : 1770975339282,
+    "stop" : 1770975339380,
+    "duration" : 98
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "setUp",
+    "time" : {
+      "start" : 1770975335657,
+      "stop" : 1770975339224,
+      "duration" : 3567
+    },
+    "description" : "",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "tearDown",
+    "time" : {
+      "start" : 1770975339389,
+      "stop" : 1770975339466,
+      "duration" : 77
+    },
+    "description" : "",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "package",
+    "value" : "framework.tests.ui.LoginTest"
+  }, {
+    "name" : "testClass",
+    "value" : "framework.tests.ui.LoginTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "loginWithValidUser"
+  }, {
+    "name" : "parentSuite",
+    "value" : "AllTestsSuite"
+  }, {
+    "name" : "suite",
+    "value" : "UI Tests"
+  }, {
+    "name" : "subSuite",
+    "value" : "framework.tests.ui.LoginTest"
+  }, {
+    "name" : "host",
+    "value" : "runnervmjduv7"
+  }, {
+    "name" : "thread",
+    "value" : "2353@runnervmjduv7.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "testng"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "severity",
+    "value" : "critical"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "critical",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "735011924924b969.json",
+  "parameterValues" : [ ]
+}

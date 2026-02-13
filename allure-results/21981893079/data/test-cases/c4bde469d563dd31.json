@@ -1,0 +1,97 @@
+{
+  "uid" : "c4bde469d563dd31",
+  "name" : "Login via valid credentials",
+  "fullName" : "framework.tests.ui.LoginTest.validUserCanLogin",
+  "historyId" : "64df0f4f84d8c69ff2c61d0f5a47efae",
+  "time" : {
+    "start" : 1770975339854,
+    "stop" : 1770975341079,
+    "duration" : 1225
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "setUp",
+    "time" : {
+      "start" : 1770975339468,
+      "stop" : 1770975339850,
+      "duration" : 382
+    },
+    "description" : "",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "afterStages" : [ {
+    "name" : "tearDown",
+    "time" : {
+      "start" : 1770975341081,
+      "stop" : 1770975341153,
+      "duration" : 72
+    },
+    "description" : "",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "package",
+    "value" : "framework.tests.ui.LoginTest"
+  }, {
+    "name" : "testClass",
+    "value" : "framework.tests.ui.LoginTest"
+  }, {
+    "name" : "testMethod",
+    "value" : "validUserCanLogin"
+  }, {
+    "name" : "parentSuite",
+    "value" : "AllTestsSuite"
+  }, {
+    "name" : "suite",
+    "value" : "UI Tests"
+  }, {
+    "name" : "subSuite",
+    "value" : "framework.tests.ui.LoginTest"
+  }, {
+    "name" : "host",
+    "value" : "runnervmjduv7"
+  }, {
+    "name" : "thread",
+    "value" : "2353@runnervmjduv7.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "testng"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "severity",
+    "value" : "critical"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "critical",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "c4bde469d563dd31.json",
+  "parameterValues" : [ ]
+}

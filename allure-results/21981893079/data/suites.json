@@ -1,0 +1,43 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "name" : "suites",
+  "children" : [ {
+    "name" : "AllTestsSuite",
+    "children" : [ {
+      "name" : "UI Tests",
+      "children" : [ {
+        "name" : "framework.tests.ui.LoginTest",
+        "children" : [ {
+          "name" : "Login via valid credentials using test Data",
+          "uid" : "735011924924b969",
+          "parentUid" : "0320db0e498ae39ef4b3fd4d2d71438f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1770975339282,
+            "stop" : 1770975339380,
+            "duration" : 98
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "Login via valid credentials",
+          "uid" : "c4bde469d563dd31",
+          "parentUid" : "0320db0e498ae39ef4b3fd4d2d71438f",
+          "status" : "passed",
+          "time" : {
+            "start" : 1770975339854,
+            "stop" : 1770975341079,
+            "duration" : 1225
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "0320db0e498ae39ef4b3fd4d2d71438f"
+      } ],
+      "uid" : "bc7ec7a79d3746c00c9e6f3345811b41"
+    } ],
+    "uid" : "efe035337bc8946ab2f681d1c368d215"
+  } ]
+}
