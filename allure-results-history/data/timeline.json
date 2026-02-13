@@ -1,0 +1,39 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "runnervmjduv7",
+    "children" : [ {
+      "name" : "2343@runnervmjduv7.main(1)",
+      "children" : [ {
+        "name" : "Login via valid credentials",
+        "uid" : "151fcce0292907f9",
+        "parentUid" : "99ee43390160bf3c22081bf3d967de31",
+        "status" : "passed",
+        "time" : {
+          "start" : 1770975824371,
+          "stop" : 1770975826923,
+          "duration" : 2552
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Login via valid credentials using test Data",
+        "uid" : "dbca2ead01e1c6fd",
+        "parentUid" : "99ee43390160bf3c22081bf3d967de31",
+        "status" : "passed",
+        "time" : {
+          "start" : 1770975823835,
+          "stop" : 1770975823927,
+          "duration" : 92
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "99ee43390160bf3c22081bf3d967de31"
+    } ],
+    "uid" : "62f24e2767a2ba5dc6f7813aac246f6e"
+  } ]
+}
