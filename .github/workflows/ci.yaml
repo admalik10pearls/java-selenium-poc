@@ -41,47 +41,58 @@ jobs:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
 
+      - name: Load Allure history from GitHub Pages
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages-history
+
       - name: Generate Allure Report
         if: always()
         run: |
           mkdir -p target/allure-results
             
-          if [ -d "gh-pages-history/history" ]; then
-            echo "Found previous history. Copying to target/allure-results/history..."
+          if [ -d "gh-pages-history/allure-results-history/history" ]; then
+            echo "Found previous history. Copying to target..."
             mkdir -p target/allure-results/history
-            cp -r gh-pages-history/history/* target/allure-results/history/
+            cp -r gh-pages-history/allure-results-history/history/* target/allure-results/history/
           fi
             
           mvn allure:report
 
-      - name: Upload Allure HTML report as artifact
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: allure-report
-          path: target/allure-report
-
-      - name: Setup Pages
-        if: always()
-        uses: actions/configure-pages@v4
-
       - name: Deploy Allure Report to GitHub Pages
+        id: deploy_report
         if: always()
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/allure-report
+          publish_dir: target/allure-report
           destination_dir: allure-results/${{ github.run_id }}
+          keep_files: true
+
+      - name: Update History for Next Run
+        if: always() && steps.deploy_report.outcome == 'success'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: target/allure-report
+          destination_dir: allure-results-history
+          keep_files: false
 
       - name: Post PR Comment
         if: always() && github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            ### 📊 Allure Test Report
-            The latest test results have been generated and deployed.
+            ### 📊 Test Execution Summary
               
-            **Report URL:** [View Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/allure-results/${{ github.run_id }}/)
+            ${{ steps.deploy_report.outcome == 'success' 
+                ? format('✅ **Allure Report:** [🔍 Click to View Results](https://{0}.github.io/{1}/allure-results/{2}/)', github.repository_owner, github.event.repository.name, github.run_id) 
+                : '❌ **Allure Report:** Report generation or hosting failed. Check the Action logs.' 
+            }}
               
-            _Built by GitHub Actions run #${{ github.run_number }}_
+            - **Action Run:** [⚙️ View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - **Execution Date:** ${{ github.event.head_commit.timestamp || 'Manual Run' }}
           comment_tag: allure-report-link
