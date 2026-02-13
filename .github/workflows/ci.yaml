@@ -50,3 +50,27 @@ jobs:
         with:
           name: allure-report
           path: target/allure-report
+
+      - name: Setup Pages
+        if: always()
+        uses: actions/configure-pages@v4
+
+      - name: Deploy Allure Report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/allure-report
+          destination_dir: allure-results/${{ github.run_id }}
+      - name: Post PR Comment
+        if: always() && github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            ### 📊 Allure Test Report
+            The latest test results have been generated and deployed.
+              
+            **Report URL:** [View Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/allure-results/${{ github.run_id }}/)
+              
+            _Built by GitHub Actions run #${{ github.run_number }}_
+          comment_tag: allure-report-link
