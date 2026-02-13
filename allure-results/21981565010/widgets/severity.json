@@ -1,0 +1,21 @@
+[ {
+  "uid" : "d804415836198791",
+  "name" : "Login via valid credentials using test Data",
+  "time" : {
+    "start" : 1770974675656,
+    "stop" : 1770974675748,
+    "duration" : 92
+  },
+  "status" : "passed",
+  "severity" : "critical"
+}, {
+  "uid" : "9d6d575db21ac030",
+  "name" : "Login via valid credentials",
+  "time" : {
+    "start" : 1770974676142,
+    "stop" : 1770974677463,
+    "duration" : 1321
+  },
+  "status" : "passed",
+  "severity" : "critical"
+} ]
