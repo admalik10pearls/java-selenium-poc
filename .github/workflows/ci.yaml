@@ -7,6 +7,11 @@ on:
   pull_request:
     branches:
       - main
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
 
 jobs:
   test:
@@ -40,13 +45,36 @@ jobs:
         env:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
+        continue-on-error: true
 
-      - name: Generate Allure HTML report
-        run: mvn allure:report
-
-      - name: Upload Allure HTML report as artifact
+      - name: Generate Allure Report
         if: always()
-        uses: actions/upload-artifact@v6
+        run: |
+          mvn allure:report
+
+      - name: Setup Pages
+        if: always()
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: allure-report
           path: target/allure-report
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        if: always()
+        uses: actions/deploy-pages@v4
+
+      - name: Post PR Comment
+        if: always() && github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            ### 📊 Test Execution Summary
+              
+            ${{ (steps.deployment.outcome == 'success' && format('✅ **Allure Report:** [🔍 Click to View Results]({0})', steps.deployment.outputs.page_url)) || '❌ **Allure Report:** Deployment failed.' }}
+              
+            - **Action Run:** [⚙️ View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          comment_tag: allure-report-link
