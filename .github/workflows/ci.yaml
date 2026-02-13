@@ -41,8 +41,20 @@ jobs:
           app_password: ${{ secrets.app_password }}
         run: mvn clean test --batch-mode
 
-      - name: Generate Allure HTML report
-        run: mvn allure:report
+      - name: Generate Allure Report
+        if: always()
+        run: |
+          mkdir -p allure-results
+            
+          if [ -d "gh-pages-history/history" ]; then
+            echo "Found previous history. Copying to results..."
+            mkdir -p allure-results/history
+            cp -r gh-pages-history/history/* allure-results/history/
+          else
+            echo "No previous history found. Skipping copy."
+          fi
+
+          mvn allure:report
 
       - name: Upload Allure HTML report as artifact
         if: always()
