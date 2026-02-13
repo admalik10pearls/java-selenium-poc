@@ -44,16 +44,14 @@ jobs:
       - name: Generate Allure Report
         if: always()
         run: |
-          mkdir -p allure-results
+          mkdir -p target/allure-results
             
           if [ -d "gh-pages-history/history" ]; then
-            echo "Found previous history. Copying to results..."
-            mkdir -p allure-results/history
-            cp -r gh-pages-history/history/* allure-results/history/
-          else
-            echo "No previous history found. Skipping copy."
+            echo "Found previous history. Copying to target/allure-results/history..."
+            mkdir -p target/allure-results/history
+            cp -r gh-pages-history/history/* target/allure-results/history/
           fi
-
+            
           mvn allure:report
 
       - name: Upload Allure HTML report as artifact
@@ -74,6 +72,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./target/allure-report
           destination_dir: allure-results/${{ github.run_id }}
+
       - name: Post PR Comment
         if: always() && github.event_name == 'pull_request'
         uses: thollander/actions-comment-pull-request@v2
