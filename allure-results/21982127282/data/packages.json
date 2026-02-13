@@ -1,0 +1,35 @@
+{
+  "uid" : "83edc06c07f9ae9e47eb6dd1b683e4e2",
+  "name" : "packages",
+  "children" : [ {
+    "name" : "framework.tests.ui.LoginTest",
+    "children" : [ {
+      "name" : "loginWithValidUser",
+      "uid" : "dbca2ead01e1c6fd",
+      "parentUid" : "ff0319483208c13650be9829868f39b1",
+      "status" : "passed",
+      "time" : {
+        "start" : 1770975823835,
+        "stop" : 1770975823927,
+        "duration" : 92
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    }, {
+      "name" : "validUserCanLogin",
+      "uid" : "151fcce0292907f9",
+      "parentUid" : "ff0319483208c13650be9829868f39b1",
+      "status" : "passed",
+      "time" : {
+        "start" : 1770975824371,
+        "stop" : 1770975826923,
+        "duration" : 2552
+      },
+      "flaky" : false,
+      "newFailed" : false,
+      "parameters" : [ ]
+    } ],
+    "uid" : "framework.tests.ui.LoginTest"
+  } ]
+}
