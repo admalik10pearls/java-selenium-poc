@@ -1,6 +1,7 @@
 package framework.tests.ui;
 
 import framework.base.BaseTest;
+import framework.driver.DriverManager;
 import framework.pages.InventoryPage;
 import framework.pages.LoginPage;
 import framework.utils.LoggerUtils;
@@ -20,29 +21,28 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     void validUserCanLogin() {
         log.info("Starting login test");
-        LoginPage loginPage = new LoginPage(driver);
-        InventoryPage inventoryPage = new InventoryPage(driver);
 
-        loginPage.open();
-        log.info("Login page opened");
+        LoginPage loginPage = new LoginPage(DriverManager.getDriver());
+        InventoryPage inventoryPage = new InventoryPage(DriverManager.getDriver());
 
+        loginPage.waitForPageLoad();
         loginPage.loginWithDefaultUser();
-        log.info("Login submitted");
 
         assertTrue(inventoryPage.isLoaded());
         log.info("Inventory page loaded successfully");
     }
+
     @Test(description = "Login via valid credentials using test Data")
     @Severity(SeverityLevel.CRITICAL)
     void loginWithValidUser() {
+        LoginPage loginPage = new LoginPage(DriverManager.getDriver());
+        InventoryPage inventoryPage = new InventoryPage(DriverManager.getDriver());
         TestDataReader testData = new TestDataReader("testData.json");
-
         String username = testData.getString("validUser.username");
-        String password = testData.getString("validUser.password");
-
-        System.out.println("Username: " + username);
-        System.out.println("Password: " + password);
-
-        assertEquals(username, "standard_user");
+        String pass = testData.getString("validUser.password");
+        loginPage.waitForPageLoad();
+        loginPage.login(username , pass );
+        assertTrue(inventoryPage.isLoaded());
+        log.info("Inventory page loaded successfully via test data");
     }
 }

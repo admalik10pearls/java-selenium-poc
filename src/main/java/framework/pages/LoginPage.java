@@ -15,8 +15,7 @@ public class LoginPage extends BasePage{
         super(driver);
     }
 
-    public void open() {
-        driver.get(ConfigReader.get("base.url"));
+    public void waitForPageLoad() {
         wait.waitForVisible(usernameInput);
     }
 

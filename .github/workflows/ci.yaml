@@ -17,6 +17,8 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: "-Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
 
     steps:
       - name: Checkout repository
@@ -41,7 +43,7 @@ jobs:
         env:
           app_password: ${{ secrets.app_password }}
         # 'verify' triggers Checkstyle -> PMD -> SpotBugs -> Tests
-        run: mvn clean verify --batch-mode
+        run: mvn clean verify -Pall-tests --batch-mode
         continue-on-error: true
 
       - name: Generate Allure Report
