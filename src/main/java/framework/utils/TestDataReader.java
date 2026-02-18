@@ -7,12 +7,11 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class TestDataReader {
+public final class TestDataReader {
 
     private static final ObjectMapper mapper = new ObjectMapper();
     private final JsonNode rootNode;
 
-    // Correct type is Logger
     private final Logger logger = LoggerUtils.getLogger(TestDataReader.class);
 
     public TestDataReader(String fileName) {

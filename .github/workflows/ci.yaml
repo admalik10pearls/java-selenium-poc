@@ -1,4 +1,4 @@
-name: CI — Java Maven Tests
+name: CI — Java Maven Tests & Quality Gates
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+
 permissions:
   contents: read
   pages: write
@@ -19,38 +20,33 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up JDK
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         with:
-          distribution: temurin
+          distribution: 'temurin'
           java-version: '21'
-          cache: maven
+          cache: 'maven'
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v5
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2-
+      # This registers standard Java error matchers automatically
+      - name: Register Problem Matchers
+        run: echo "::add-matcher::.github/checkstyle-matcher.json"
+        continue-on-error: true
 
-      - name: Check environment
-        run: |
-          java -version
-          mvn -version
-
-      - name: Run Maven tests
+      - name: Run Maven Tests & Quality Gates
+        id: maven_run
         env:
           app_password: ${{ secrets.app_password }}
-        run: mvn clean test --batch-mode
+        # 'verify' triggers Checkstyle -> PMD -> SpotBugs -> Tests
+        run: mvn clean verify --batch-mode
         continue-on-error: true
 
       - name: Generate Allure Report
         if: always()
-        run: |
-          mvn allure:report
+        run: mvn allure:report
 
       - name: Setup Pages
         if: always()
@@ -72,9 +68,29 @@ jobs:
         uses: thollander/actions-comment-pull-request@v2
         with:
           message: |
-            ### 📊 Test Execution Summary
-              
-            ${{ (steps.deployment.outcome == 'success' && format('✅ **Allure Report:** [🔍 Click to View Results]({0})', steps.deployment.outputs.page_url)) || '❌ **Allure Report:** Deployment failed.' }}
-              
+            ### 📊 CI Execution Summary
+            
+            ${{ steps.maven_run.outcome == 'success' && '✅ **Build Passed:** All tests and quality gates passed.' || '🚨 **Build Issues Found:** Please review the "Files Changed" tab or Allure report.' }}
+
+            ---
+            
+            #### 🛠️ Quality Gate & Test Status
+            | Check Type | Status |
+            | :--- | :--- |
+            | **Functional Tests** | ${{ steps.maven_run.outcome == 'success' && '✅ Pass' || '⚠️ Check Logs' }} |
+            | **Static Analysis (PMD/SpotBugs)** | ${{ steps.maven_run.outcome == 'success' && '✅ Clear' || '🚨 Violation Found' }} |
+            
+            ${{ (steps.deployment.outcome == 'success' && format('🔗 **Allure Report:** [🔍 View Results]({0})', steps.deployment.outputs.page_url)) || '❌ **Report:** Deployment failed.' }}
+            
             - **Action Run:** [⚙️ View Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           comment_tag: allure-report-link
+
+      - name: Upload Raw Quality Reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-quality-reports
+          path: |
+            target/checkstyle-result.xml
+            target/pmd.xml
+            target/spotbugsXml.xml
