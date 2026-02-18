@@ -177,8 +177,20 @@
                 <configuration>
                     <useModulePath>false</useModulePath>
                     <suiteXmlFiles>
-                        <suiteXmlFile>testng.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
+
+                    <properties>
+                        <property>
+                            <name>parallel</name>
+                            <value>methods</value>
+                        </property>
+                        <property>
+                            <name>threadcount</name>
+                            <value>2</value>
+                        </property>
+                    </properties>
+
                     <systemPropertyVariables>
                         <allure.results.directory>${allure.results.directory}</allure.results.directory>
                     </systemPropertyVariables>
