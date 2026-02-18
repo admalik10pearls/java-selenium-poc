@@ -22,7 +22,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Required for some reporting tools to map lines correctly
           fetch-depth: 0
 
       - name: Set up JDK 21
@@ -32,19 +31,18 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
+      # This registers standard Java error matchers automatically
+      - name: Register Problem Matchers
+        run: echo "::add-matcher::.github/checkstyle-matcher.json"
+        continue-on-error: true
+
       - name: Run Maven Tests & Quality Gates
         id: maven_run
         env:
           app_password: ${{ secrets.app_password }}
-        # verify triggers Checkstyle -> PMD -> SpotBugs -> Tests
+        # 'verify' triggers Checkstyle -> PMD -> SpotBugs -> Tests
         run: mvn clean verify --batch-mode
         continue-on-error: true
-
-      - name: Annotate Quality Gate Violations
-        if: github.event_name == 'pull_request'
-        uses: jason-v-lee/checkstyle-action@v1.1.0
-        with:
-          path: 'target/checkstyle-result.xml'
 
       - name: Generate Allure Report
         if: always()
@@ -72,7 +70,7 @@ jobs:
           message: |
             ### 📊 CI Execution Summary
             
-            ${{ steps.maven_run.outcome == 'success' && '✅ **Build Passed:** All tests and quality gates passed.' || '🚨 **Build Issues Found:** Please review the annotations in the "Files Changed" tab.' }}
+            ${{ steps.maven_run.outcome == 'success' && '✅ **Build Passed:** All tests and quality gates passed.' || '🚨 **Build Issues Found:** Please review the "Files Changed" tab or Allure report.' }}
 
             ---
             
